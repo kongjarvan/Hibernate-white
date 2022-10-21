@@ -19,7 +19,6 @@ public class Board {
 	private String title;
 	@Column(length = 1000) // varchar의 길이를 설정
 	private String content;
-	private String temp;
 	private String author;
 	// private Timestamp createdAt;
 }

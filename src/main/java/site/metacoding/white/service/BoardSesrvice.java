@@ -13,8 +13,21 @@ public class BoardSesrvice {
 
 	private final BoardRepository boardRepository;
 
-	@Transactional// 이거 안붙이면 save가 안됨
+	@Transactional // 이거 안붙이면 save가 안됨
 	public void save(Board board) {
 		boardRepository.save(board);
 	}
+
+	public Board findById(Long id) { // select만 할거면 transactional 안붙여도 됨
+		return boardRepository.findById(id);
+	}
+
+	@Transactional
+	public void update(Long id, Board board) {
+		Board boardPS = boardRepository.findById(id);
+		boardPS.setTitle(board.getTitle());
+		boardPS.setContent(board.getContent());
+		boardPS.setAuthor(board.getAuthor());
+	} // 종료시 더티체킹 하여 모든 쓰레기 데이터를 flush => update 됨
+
 }
