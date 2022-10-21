@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity // 엔티티로 설정
-public class board {
+public class Board {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // 기본 키 생성을 DB에 위임
 	private Long id; // id에 auto_increment를 설정
@@ -20,5 +20,6 @@ public class board {
 	@Column(length = 1000) // varchar의 길이를 설정
 	private String content;
 	private String temp;
+	private String author;
 	// private Timestamp createdAt;
 }
