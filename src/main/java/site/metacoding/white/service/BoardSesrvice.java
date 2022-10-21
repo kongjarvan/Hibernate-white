@@ -1,5 +1,7 @@
 package site.metacoding.white.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +24,10 @@ public class BoardSesrvice {
 		return boardRepository.findById(id);
 	}
 
+	public List<Board> findAll() { // select만 할거면 transactional 안붙여도 됨
+		return boardRepository.findAll();
+	}
+
 	@Transactional
 	public void update(Long id, Board board) {
 		Board boardPS = boardRepository.findById(id);
@@ -29,5 +35,10 @@ public class BoardSesrvice {
 		boardPS.setContent(board.getContent());
 		boardPS.setAuthor(board.getAuthor());
 	} // 종료시 더티체킹 하여 모든 쓰레기 데이터를 flush => update 됨
+
+	@Transactional
+	public void deleteById(Long id) {
+		boardRepository.deleteById(id);
+	}
 
 }
