@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import site.metacoding.white.domain.Board;
 import site.metacoding.white.domain.BoardRepository;
+import site.metacoding.white.dto.BoardReqDto.BoardSaveDto;
 
 // 트랜젝션 관리
 // DTO 변환하여 컨트롤러에게 리턴
@@ -19,8 +20,12 @@ public class BoardService {
 	private final BoardRepository boardRepository;
 
 	@Transactional // 이거 안붙이면 save가 안됨
-	public void save(Board board) {
-		boardRepository.save(board);
+	public void save(BoardSaveDto boardSaveDto) {
+		Board board = new Board();
+		board.setTitle(boardSaveDto.getTitle());
+		board.setContent(boardSaveDto.getContent());
+		board.setUser(boardSaveDto.getUser());
+		boardRepository.save(board); // 서비스단에서 dto를 entity에 담아서 ps에 전달
 	}
 
 	public Board findById(Long id) { // select만 할거면 transactional 안붙여도 됨
