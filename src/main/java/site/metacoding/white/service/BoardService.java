@@ -9,9 +9,12 @@ import lombok.RequiredArgsConstructor;
 import site.metacoding.white.domain.Board;
 import site.metacoding.white.domain.BoardRepository;
 
+// 트랜젝션 관리
+// DTO 변환하여 컨트롤러에게 리턴
+
 @RequiredArgsConstructor
 @Service // ioc컨테이너에 띄워줌
-public class BoardSesrvice {
+public class BoardService {
 
 	private final BoardRepository boardRepository;
 
@@ -24,7 +27,7 @@ public class BoardSesrvice {
 		return boardRepository.findById(id);
 	}
 
-	public List<Board> findAll() { // select만 할거면 transactional 안붙여도 됨
+	public List<Board> findAll() {
 		return boardRepository.findAll();
 	}
 
@@ -33,7 +36,6 @@ public class BoardSesrvice {
 		Board boardPS = boardRepository.findById(id);
 		boardPS.setTitle(board.getTitle());
 		boardPS.setContent(board.getContent());
-		boardPS.setAuthor(board.getAuthor());
 	} // 종료시 더티체킹 하여 모든 쓰레기 데이터를 flush => update 됨
 
 	@Transactional

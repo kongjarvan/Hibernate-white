@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.white.domain.Board;
-import site.metacoding.white.service.BoardSesrvice;
+import site.metacoding.white.service.BoardService;
 
 @RequiredArgsConstructor
 @RestController
 public class BoardApiController {
 
-	private final BoardSesrvice boardService;
+	private final BoardService boardService;
 
 	@GetMapping("/board/{id}")
 	public Board findById(@PathVariable Long id) {
