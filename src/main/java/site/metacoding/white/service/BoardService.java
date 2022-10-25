@@ -8,9 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import site.metacoding.white.domain.Board;
 import site.metacoding.white.domain.BoardRepository;
-import site.metacoding.white.domain.UserRepository;
 import site.metacoding.white.dto.BoardReqDto.BoardSaveReqDto;
+import site.metacoding.white.dto.BoardReqDto.BoardUpdateReqDto;
 import site.metacoding.white.dto.BoardRespDto.BoardSaveRespDto;
+import site.metacoding.white.dto.BoardRespDto.BoardUpdateRespDto;
 
 // 트랜젝션 관리
 // DTO 변환하여 컨트롤러에게 리턴
@@ -42,9 +43,10 @@ public class BoardService {
 	}
 
 	@Transactional
-	public void update(Long id, Board board) {
-		Board boardPS = boardRepository.findById(id);
-		boardPS.update(board.getTitle(), board.getContent());
+	public BoardUpdateRespDto update(BoardUpdateReqDto boardUpdateReqDto) {
+		Board boardPS = boardRepository.findById(boardUpdateReqDto.toEntity().getId());
+		boardPS.update(boardUpdateReqDto.getTitle(), boardUpdateReqDto.getContent());
+		return new BoardUpdateRespDto(boardPS);
 	} // 종료시 더티체킹 하여 모든 쓰레기 데이터를 flush => update 됨
 
 	@Transactional
