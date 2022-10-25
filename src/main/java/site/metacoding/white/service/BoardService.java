@@ -43,8 +43,8 @@ public class BoardService {
 	}
 
 	@Transactional
-	public BoardUpdateRespDto update(BoardUpdateReqDto boardUpdateReqDto) {
-		Board boardPS = boardRepository.findById(boardUpdateReqDto.toEntity().getId());
+	public BoardUpdateRespDto update(Long id, BoardUpdateReqDto boardUpdateReqDto) {
+		Board boardPS = boardRepository.findById(id);
 		boardPS.update(boardUpdateReqDto.getTitle(), boardUpdateReqDto.getContent());
 		return new BoardUpdateRespDto(boardPS);
 	} // 종료시 더티체킹 하여 모든 쓰레기 데이터를 flush => update 됨

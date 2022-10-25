@@ -51,7 +51,7 @@ public class BoardApiController {
 	public ResponseDto<?> update(@PathVariable Long id, @RequestBody BoardUpdateReqDto boardUpdateReqDto) {
 		SessionUser sessionUser = (SessionUser) session.getAttribute("principal");
 		boardUpdateReqDto.setSessionUser(sessionUser);
-		BoardUpdateRespDto boardUpdateRespDto = boardService.update(boardUpdateReqDto);
+		BoardUpdateRespDto boardUpdateRespDto = boardService.update(id, boardUpdateReqDto);
 		return new ResponseDto<>(1, "성공", boardUpdateRespDto);
 	}
 
