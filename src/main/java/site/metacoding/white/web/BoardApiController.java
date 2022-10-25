@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import site.metacoding.white.domain.Board;
 import site.metacoding.white.domain.User;
-import site.metacoding.white.dto.BoardReqDto.BoardSaveDto;
+import site.metacoding.white.dto.BoardReqDto.BoardSaveReqDto;
 import site.metacoding.white.service.BoardService;
 
 @RequiredArgsConstructor
@@ -28,6 +28,7 @@ public class BoardApiController {
 	@GetMapping("/v2/board/{id}")
 	public Board findByIdV2(@PathVariable Long id) {
 		Board boardPS = boardService.findById(id);
+		System.out.println("이 아래 lazy 로딩");
 		boardPS.getUser().getUsername(); // lazy 로딩 (eager시에는 필요 없음)
 		return boardService.findById(id);
 	}
@@ -48,22 +49,14 @@ public class BoardApiController {
 		return "ok";
 	}
 
-	@PostMapping("/v2/board")
-	public String saveV2(@RequestBody BoardSaveDto boardSaveDto) {
+	@PostMapping("/board")
+	public String save(@RequestBody BoardSaveReqDto boardSaveReqDto) {
 		User principal = (User) session.getAttribute("principal");
 		// insert into user(title, content, user_id) values (?, ?, ?)
-		boardSaveDto.setUser(principal);
-		boardService.save(boardSaveDto);
+		boardSaveReqDto.setUser(principal);
+		boardService.save(boardSaveReqDto); // 서비스에는 단 하나의 객체만 전달한다
 		return "ok";
 	}
-
-	/*
-	 * @PostMapping("/board")
-	 * public String save(@RequestBody Board board) {
-	 * boardService.save(board);
-	 * return "ok";
-	 * }
-	 */
 
 	@DeleteMapping("/board/{id}")
 	public String deleteById(@PathVariable Long id) {
