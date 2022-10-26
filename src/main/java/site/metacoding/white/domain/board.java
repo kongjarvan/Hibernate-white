@@ -1,5 +1,8 @@
 package site.metacoding.white.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,12 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
+@NoArgsConstructor // 스프링에서 DB -> rs -> Entity (전략: 디폴트 생성자 호출 한 뒤 setter)
 @Getter
 @Entity // 엔티티로 설정
 public class Board {
@@ -24,8 +28,12 @@ public class Board {
 	private String content;
 
 	// FK가 만들어짐 user_id
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
+
+	// 조회를 위해서만 필요함
+	@OneToMany(mappedBy = "board", fetch = FetchType.LAZY)
+	private List<Comment> comments = new ArrayList<>();
 
 	@Builder
 	public Board(Long id, String title, String content, User user) {

@@ -21,6 +21,10 @@ public class UserApiController {
 	private final UserService userService;
 	private final HttpSession session;
 
+	// 회원정보 보기
+
+	// 회원정보 수정
+
 	@PostMapping("/join")
 	public ResponseDto<?> save(@RequestBody JoinReqDto joinReqDto) {
 		JoinRespDto joinRespDto = userService.save(joinReqDto);
@@ -32,7 +36,7 @@ public class UserApiController {
 	@PostMapping("/login")
 	public ResponseDto<?> login(@RequestBody LoginReqDto loginReqDto) {
 		SessionUser sessionUser = userService.login(loginReqDto);
-		session.setAttribute("principal", sessionUser);
+		session.setAttribute("sessionUser", sessionUser);
 		return new ResponseDto<>(1, "ok", sessionUser);
 	}
 
