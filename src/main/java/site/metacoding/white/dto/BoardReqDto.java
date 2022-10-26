@@ -25,15 +25,14 @@ public class BoardReqDto {
 	@Setter
 	@Getter
 	public static class BoardUpdateReqDto {
+		private Long id;
 		private String title;
 		private String content;
-		private SessionUser sessionUser;
 
 		public Board toEntity() {
 			return Board.builder()
 					.title(title)
 					.content(content)
-					.user(sessionUser.toEntity())
 					.build();
 		}
 	}

@@ -12,7 +12,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
+@NoArgsConstructor // 스프링에서 DB -> rs -> Entity (전략: 디폴트 생성자 호출 한 뒤 setter)
 @Getter
 @Entity // 엔티티로 설정
 public class Board {
@@ -24,7 +24,7 @@ public class Board {
 	private String content;
 
 	// FK가 만들어짐 user_id
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
 
 	@Builder
