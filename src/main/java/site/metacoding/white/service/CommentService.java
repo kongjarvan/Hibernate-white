@@ -32,12 +32,24 @@ public class CommentService {
 			// 2. 있으면 comment 객체 만들기
 			Comment comment = commentSaveReqDto.toEntity(boardOP.get());
 			Comment commentPS = commentRepository.save(comment);
+			System.out.println(commentSaveReqDto.getContent());
 			CommentSaveRespDto commentSaveRespDto = new CommentSaveRespDto(commentPS);
+
 			return commentSaveRespDto;
 		} else {
 			throw new RuntimeException("해당" + id + "의 댓글작성을 할 수 없습니다.");
 		}
 
+	}
+
+	@Transactional
+	public void deleteById(Long id) {
+		Optional<Comment> commentOP = commentRepository.findById(id);
+		if (commentOP.isPresent()) {
+			commentRepository.deleteById(id);
+		} else {
+			throw new RuntimeException("댓글" + id + "이 존재하지 않습니다.");
+		}
 	}
 
 }

@@ -29,8 +29,6 @@ public class UserApiController {
 	public ResponseDto<?> save(@RequestBody JoinReqDto joinReqDto) {
 		JoinRespDto joinRespDto = userService.save(joinReqDto);
 		return new ResponseDto<>(1, "ok", joinRespDto);
-		// 내가 insert한 데이터를 body값으로 돌려줌
-		// CREATED: 201(새로운것을 만들었을때)
 	}
 
 	@PostMapping("/login")

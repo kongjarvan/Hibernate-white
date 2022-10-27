@@ -12,8 +12,8 @@ import site.metacoding.white.domain.Board;
 import site.metacoding.white.domain.BoardRepository;
 import site.metacoding.white.dto.BoardReqDto.BoardSaveReqDto;
 import site.metacoding.white.dto.BoardReqDto.BoardUpdateReqDto;
+import site.metacoding.white.dto.BoardRespDto.BoardAllRespDto;
 import site.metacoding.white.dto.BoardRespDto.BoardDetailRespDto;
-import site.metacoding.white.dto.BoardRespDto.BoardDetailRespDto.BoardAllRespDto;
 import site.metacoding.white.dto.BoardRespDto.BoardSaveRespDto;
 import site.metacoding.white.dto.BoardRespDto.BoardUpdateRespDto;
 
@@ -37,6 +37,7 @@ public class BoardService {
 		return boardSaveRespDto;
 	}
 
+	@Transactional
 	public BoardDetailRespDto findById(Long id) {
 		Optional<Board> boardOP = boardRepository.findById(id);
 		if (boardOP.isPresent()) {
@@ -47,6 +48,7 @@ public class BoardService {
 		}
 	}
 
+	@Transactional
 	public List<BoardAllRespDto> findAll() {
 		List<Board> boardList = boardRepository.findAll();
 

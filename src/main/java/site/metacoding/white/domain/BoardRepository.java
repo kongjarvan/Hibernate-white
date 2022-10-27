@@ -23,7 +23,8 @@ public class BoardRepository {
 	public Optional<Board> findById(Long id) { // optional은 value가 null인지 아닌지 확실하지 않을때 사용
 		try {
 			Optional<Board> boardOP = Optional.of(
-					em.createQuery("select b from Board b where b.id = :id", Board.class)
+					em.createQuery("select b from Board b join fetch b.user u join fetch b.comments c where b.id = :id",
+							Board.class)
 							.setParameter("id", id)
 							.getSingleResult());
 			return boardOP;
