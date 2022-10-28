@@ -69,7 +69,7 @@ public class BoardService {
 		if (boardOP.isPresent()) {
 			Board boardPS = boardOP.get();
 			boardPS.update(boardUpdateReqDto.getTitle(), boardUpdateReqDto.getContent());
-			return new BoardUpdateRespDto(boardOP.get());
+			return new BoardUpdateRespDto(boardPS);
 		} else {
 			throw new RuntimeException("해당" + id + "로 업데이트를 할 수 없습니다.");
 		}

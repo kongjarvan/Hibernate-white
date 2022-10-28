@@ -3,6 +3,7 @@ package site.metacoding.white.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,8 +33,12 @@ public class Board {
 	private User user;
 
 	// 조회를 위해서만 필요함
-	@OneToMany(mappedBy = "board", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "board", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.PERSIST)
 	private List<Comment> comments = new ArrayList<>();
+
+	public void addComment(Comment comment) {
+		this.comments.add(comment);
+	}
 
 	@Builder
 	public Board(Long id, String title, String content, User user) {

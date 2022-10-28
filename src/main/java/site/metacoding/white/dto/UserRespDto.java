@@ -19,4 +19,28 @@ public class UserRespDto {
 		}
 
 	}
+
+	@Setter
+	@Getter
+	public static class UserDetailRespDto {
+		private Long id;
+		private String username;
+
+		public UserDetailRespDto(User user) {
+			this.id = user.getId();
+			this.username = user.getUsername();
+		}
+	}
+
+	@Setter
+	@Getter
+	public static class UserUpdateRespDto {
+		private Long id;
+		private String username;
+
+		public UserUpdateRespDto(User user) {
+			this.id = user.getId();
+			this.username = user.getUsername();
+		}
+	}
 }
