@@ -38,7 +38,7 @@ public class UserApiController {
 	public ResponseDto<?> update(@PathVariable Long id, UserUpdateReqDto UserUpdateReqDto) {
 		UserUpdateReqDto.setId(id);
 		UserUpdateRespDto userUpdateRespDto = userService.update(UserUpdateReqDto);
-		return new ResponseDto<>(1, "성공", null);
+		return new ResponseDto<>(1, "성공", userUpdateRespDto);
 	}
 
 	@PostMapping("/join")
@@ -47,11 +47,11 @@ public class UserApiController {
 		return new ResponseDto<>(1, "ok", joinRespDto);
 	}
 
-	@PostMapping("/login")
+/* 	@PostMapping("/login")
 	public ResponseDto<?> login(@RequestBody LoginReqDto loginReqDto) {
 		SessionUser sessionUser = userService.login(loginReqDto);
 		session.setAttribute("sessionUser", sessionUser);
 		return new ResponseDto<>(1, "ok", sessionUser);
-	}
+	} */
 
 }
